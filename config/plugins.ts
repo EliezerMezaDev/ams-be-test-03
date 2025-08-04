@@ -1,50 +1,25 @@
-const localProviderConfig = {
-  config: {
-    provider: 'local',
-    providerOptions: {
-      sizeLimit: 5 * 1024 * 1024,
-    }
-  }
-}
+module.exports = ({ env }) => ({
+  "import-export-entries": {
+    enabled: true,
+  },
 
-const cloudinaryProviderConfig = (env) => (
-  {
+  upload: {
     config: {
-      provider: 'cloudinary',
+      provider: env("NODE_ENV") === "production" ? "cloudinary" : "local",
       providerOptions: {
-        cloud_name: env('CLOUDINARY_NAME'),
-        api_key: env('CLOUDINARY_KEY'),
-        api_secret: env('CLOUDINARY_SECRET'),
+        cloud_name: env("CLOUDINARY_NAME"),
+        api_key: env("CLOUDINARY_KEY"),
+        api_secret: env("CLOUDINARY_SECRET"),
       },
       actionOptions: {
-        uploadStream: {
-          folder: env('CLOUDINARY_DEFAULT_FOLDER'),
+        upload: {
+          folder:
+            env("NODE_ENV") === "production"
+              ? env("CLOUDINARY_DEFAULT_FOLDER")
+              : undefined,
         },
         delete: {},
       },
     },
-  }
-)
-
-function config({ env }) {
-  return {
-    upload: {
-      ...(env('NODE_ENV') === 'production' ? cloudinaryProviderConfig(env) : localProviderConfig)
-    },
-    'import-export-entries': {
-      enabled: true,
-    }
-  }
-}
-
-
-export default config
-
-// export default ({ env }) => ({
-//   upload: {
-//     ...(env('NODE_ENV') === 'production' ? cloudinaryProviderConfig(env) : localProviderConfig)
-//   },
-//   'import-export-entries': {
-//     enabled: true,
-//   }
-// });
+  },
+});
