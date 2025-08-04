@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trainings",
+  "info": {
+    "singularName": "training",
+    "pluralName": "trainings",
+    "displayName": "Entrenamientos",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "portraid_url": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "Principiante",
+        "Intermedio",
+        "Avanzado"
+      ]
+    },
+    "frequency": {
+      "type": "integer",
+      "max": 7,
+      "min": 1,
+      "default": 2
+    },
+    "training_type": {
+      "type": "enumeration",
+      "enum": [
+        "Fuerza",
+        "Cardio",
+        "Movilidad"
+      ]
+    },
+    "target": {
+      "type": "string"
+    },
+    "duration_weeks": {
+      "type": "integer"
+    }
+  }
+}
